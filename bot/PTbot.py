@@ -24,13 +24,10 @@ from datetime import datetime, timedelta
 import paramiko
 import time
 import re
-# from dotenv import load_dotenv
-# from pathlib import Path
 import os
 import psycopg2
 from psycopg2 import Error
 
-# load_dotenv()
 
 TOKEN = os.getenv('TOKEN')
 
@@ -43,7 +40,7 @@ hostDB = os.getenv('DBHOST')
 portDB = os.getenv('DBPORT')
 usernameDB = os.getenv('DBUSER')
 passwordDB = os.getenv('DBPASSWORD')
-databasename = os.getenv('DBNAME')
+nameDB = os.getenv('DBNAME')
 
 
 bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
@@ -323,13 +320,12 @@ async def get_emails(message: Message) -> None:
     async with asyncio.Lock():
         info_logger.info(f"Пользователь {message.from_user.username}({message.from_user.id}) запросил get_emails")
     connection = None
-    info_logger.info(f"host: {hostDB}, port: {portDB}, username: {usernameDB}, password: {passwordDB}, database: {databasename}")
     try:
         connection = psycopg2.connect(user=usernameDB,
                                     password=passwordDB,
                                     host=hostDB,
                                     port=portDB, 
-                                    database=databasename)
+                                    database=nameDB)
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM emails;")
         data = cursor.fetchall()
@@ -359,7 +355,7 @@ async def get_emails(message: Message) -> None:
                                     password=passwordDB,
                                     host=hostDB,
                                     port=portDB, 
-                                    database=databasename)
+                                    database=nameDB)
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM phones;")
         data = cursor.fetchall()
@@ -417,7 +413,7 @@ async def write_email_to_db_yes(call: CallbackQuery,state:FSMContext) -> None:
                                     password=passwordDB,
                                     host=hostDB,
                                     port=portDB, 
-                                    database=databasename)
+                                    database=nameDB)
         cursor = connection.cursor()
         cursor.execute("SELECT MAX(id) FROM emails;")
         currid = cursor.fetchone()[0]
@@ -492,7 +488,7 @@ async def write_phone_to_db_yes(call: CallbackQuery,state:FSMContext) -> None:
                                     password=passwordDB,
                                     host=hostDB,
                                     port=portDB, 
-                                    database=databasename)
+                                    database=nameDB)
         cursor = connection.cursor()
         cursor.execute("SELECT MAX(id) FROM phones;")
         currid = cursor.fetchone()[0]

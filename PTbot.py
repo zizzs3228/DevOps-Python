@@ -42,7 +42,6 @@ usernameDB = os.getenv('DBUSER')
 passwordDB = os.getenv('DBPASSWORD')
 nameDB = os.getenv('DBNAME')
 
-PG_VERSION = os.getenv('PG_VERSION')
 
 
 bot = Bot(TOKEN, parse_mode=ParseMode.HTML)

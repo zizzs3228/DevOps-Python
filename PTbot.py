@@ -568,7 +568,7 @@ async def main() -> None:
 
 if __name__ == "__main__":
     info_logger = logging.getLogger("info")
-    info_handler = TimedRotatingFileHandler("./logs/info.log", when="midnight", interval=1, backupCount=60,errors='replace')
+    info_handler = TimedRotatingFileHandler("logs/info.log", when="midnight", interval=1, backupCount=60,errors='replace')
     info_logger.setLevel(logging.INFO)  # Изменено на INFO
     info_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     info_handler.setFormatter(info_formatter)
@@ -576,7 +576,7 @@ if __name__ == "__main__":
 
     # Создание логгера для ошибок
     error_logger = logging.getLogger("error")
-    error_hd = TimedRotatingFileHandler("./logs/error.log", when="midnight", interval=1, backupCount=60,errors='replace')
+    error_hd = TimedRotatingFileHandler("logs/error.log", when="midnight", interval=1, backupCount=60,errors='replace')
     error_logger.setLevel(logging.ERROR)
     error_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     error_hd.setFormatter(error_formatter)

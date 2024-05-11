@@ -42,6 +42,8 @@ usernameDB = os.getenv('DBUSER')
 passwordDB = os.getenv('DBPASSWORD')
 nameDB = os.getenv('DBNAME')
 
+PG_VERSION = os.getenv('PG_VERSION')
+
 
 bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
 dp = Dispatcher()
@@ -299,7 +301,7 @@ async def get_release(message: Message) -> None:
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     client.connect(hostname=host, username=username, password=password, port=port)
-    stdin, stdout, stderr = client.exec_command('docker logs -n 40 db')
+    stdin, stdout, stderr = client.exec_command(f'cat /var/log/postgresql/* | grep repl | tail -n 20')
     data = stdout.read() + stderr.read()
     client.close()
     data = str(data).replace('\\n', '\n').replace('\\t', '\t')[2:-1]

@@ -41,6 +41,20 @@
         path: /tmp/init.sql
         regexp: "replacereplpassword"
         replace: "{{ hostvars[inventory_hostname]['DB_REPL_PASSWORD'] }}"
+    - name: replacepostgresuser
+      replace:
+        path: /tmp/init.sql
+        regexp: "replacepostgresuser"
+        replace: "{{ hostvars[inventory_hostname]['DB_USER'] }}"
+    - name: replacepostgresuser
+      replace:
+        path: /tmp/init.sql
+        regexp: "replacepostgrespassword"
+        replace: "{{ hostvars[inventory_hostname]['DB_PASSWORD'] }}"
+    - name: restart postgresql
+      service:
+        name: postgresql
+        state: restarted
     - name: init.sql
       command: psql -a -f /tmp/init.sql
       become: true

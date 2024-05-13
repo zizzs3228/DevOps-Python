@@ -7,6 +7,8 @@ BEGIN
     END IF; 
 END $$;
 
+ALTER USER replacepostgresuser WITH PASSWORD 'replacepostgrespassword';
+
 \c replacedbname;
 CREATE TABLE IF NOT EXISTS emails(
     id INT PRIMARY KEY,

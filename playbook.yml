@@ -46,7 +46,7 @@
         path: /tmp/init.sql
         regexp: "replacepostgresuser"
         replace: "{{ hostvars[inventory_hostname]['DB_USER'] }}"
-    - name: replacepostgresuser
+    - name: replacepostgrespassword
       replace:
         path: /tmp/init.sql
         regexp: "replacepostgrespassword"
